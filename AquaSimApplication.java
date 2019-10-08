@@ -26,20 +26,22 @@ public class AquaSimApplication
         System.out.println("Welcome to the blue screen.");
 
         // CONSTRUCT OBJECTS NEEDED FOR THE AQUARIUM SIMULATION.
-
+        Random generator = new Random();
+        //int randNum = generator.nextInt(10);
+        
         // Construct the aquarium.  Specify its dimensions when creating it.
         Aquarium aqua;                 // create reference to an Aquarium ...
         aqua = new Aquarium(600, 480); // ... object that has now been created
-
+        
         // Construct fish and add them to the aquarium.
         //      CODE MISSING HERE! 
         //  ADD AQUAFISH TO AQUARIUM
 
-        AquaFish nemo = new AquaFish(aqua); 
+        AquaFish nemo = new AquaFish(aqua, Color.RED); 
             aqua.add(nemo);
-        AquaFish sushi = new AquaFish(aqua);
+        AquaFish sushi = new AquaFish(aqua, Color.BLUE);
             aqua.add(sushi);
-        AquaFish poke = new AquaFish(aqua);
+        AquaFish poke = new AquaFish(aqua, Color.BLUE);
             aqua.add(poke);
             
         
@@ -64,16 +66,33 @@ public class AquaSimApplication
 
         // Make the fish move and redisplay.
         //      CODE MISSING HERE!
-
-        AquaFish.moveForward(nemo);
-        
-        
+           for (int i=0 ; i<=100; i++) 
+        {
+           
+            if (nemo.atWall() )
+           {
+             nemo.changeDir();
+           } 
+           nemo.moveForward();
+    
+            if (sushi.atWall() )
+           {
+            sushi.changeDir();
+           } 
+           sushi.moveForward(); 
+           
+            if (poke.atWall() ){
+            poke.changeDir();
+           }
+           poke.moveForward();
+           }
+       
 
         // WRAP UP.
         userInterface.showAquarium();
 
         // Remind user how to quit application.
-        userInterface.println ("Close GUI display window to quit.");
+        userInterface.println("Close GUI display window to quit.");
 
     }//end main
 
