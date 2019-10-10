@@ -21,13 +21,14 @@ public class AquaSimApplication
      *  This is the main function.  It executes the program.
      *  @param    String args[] is never used
      **/
+    public static Random generator;
     public static void main(String args[])
     {
         System.out.println("Welcome to the blue screen.");
 
         // CONSTRUCT OBJECTS NEEDED FOR THE AQUARIUM SIMULATION.
-        Random generator = new Random();
-        //int randNum = generator.nextInt(10);
+        generator = new Random();
+        int randNum = generator.nextInt(1);
         
         // Construct the aquarium.  Specify its dimensions when creating it.
         Aquarium aqua;                 // create reference to an Aquarium ...
@@ -36,15 +37,19 @@ public class AquaSimApplication
         // Construct fish and add them to the aquarium.
         //      CODE MISSING HERE! 
         //  ADD AQUAFISH TO AQUARIUM
-
-        AquaFish nemo = new AquaFish(aqua, Color.RED); 
-            aqua.add(nemo);
-        AquaFish sushi = new AquaFish(aqua, Color.BLUE);
-            aqua.add(sushi);
-        AquaFish poke = new AquaFish(aqua, Color.BLUE);
-            aqua.add(poke);
-            
         
+        AquaFish nemo = new AquaFish(aqua, getColor());
+        aqua.add(nemo);
+        
+        AquaFish sushi = new AquaFish(aqua, getColor());
+        aqua.add(sushi);
+        
+        AquaFish poke = new AquaFish(aqua, getColor());
+        aqua.add(poke);
+        
+        AquaFish dori = new AquaFish(aqua, getColor());
+        aqua.add(dori);
+
         
         // Construct a graphical user interface (GUI) to display and control
         // the simulation.  The user interface needs to know about the
@@ -85,15 +90,45 @@ public class AquaSimApplication
             poke.changeDir();
            }
            poke.moveForward();
+           
+           if (dori.atWall() ){
+            dori.changeDir();
+           }
+           dori.moveForward();
+           
+           userInterface.showAquarium();
            }
        
 
         // WRAP UP.
-        userInterface.showAquarium();
+        
 
         // Remind user how to quit application.
         userInterface.println("Close GUI display window to quit.");
 
+        
     }//end main
-
+    public static Color getColor()
+        {
+            int randNum = generator.nextInt(4);
+            
+            /*if (randNum==0)
+                return Color.RED;
+            else if (randNum==1)  
+                return Color.ORANGE;
+            else if(randNum==2)
+                return Color.YELLOW;
+            else if (randNum==3)
+                return Color.GREEN;
+            else if(randNum==4)
+                return Color.BLUE;
+            else 
+                return Color.MAGENTA;
+           */      
+           if (randNum <=2)
+                return Color.RED;
+           else 
+                return Color.BLUE;
+                
+        }
 }//end class
