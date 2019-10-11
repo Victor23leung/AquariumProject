@@ -28,7 +28,7 @@ public class AquaSimApplication
 
         // CONSTRUCT OBJECTS NEEDED FOR THE AQUARIUM SIMULATION.
         generator = new Random();
-        int randNum = generator.nextInt(1);
+        
         
         // Construct the aquarium.  Specify its dimensions when creating it.
         Aquarium aqua;                 // create reference to an Aquarium ...
@@ -37,6 +37,7 @@ public class AquaSimApplication
         // Construct fish and add them to the aquarium.
         //      CODE MISSING HERE! 
         //  ADD AQUAFISH TO AQUARIUM
+        
         
         AquaFish nemo = new AquaFish(aqua, getColor());
         aqua.add(nemo);
@@ -55,7 +56,7 @@ public class AquaSimApplication
         // the simulation.  The user interface needs to know about the
         // aquarium, so we pass aqua to the user interface constructor.
         AquaSimGUI userInterface;              // create reference to GUI ...
-        userInterface = new AquaSimGUI(aqua);  // ... and then GUI itself
+        userInterface = new AquaSimGUI(aqua,true);// ... and then GUI itself
 
         // Tell the user how to start the aquarium simulation.
         System.out.println("Press the Start button to start the simulation.");
@@ -63,6 +64,10 @@ public class AquaSimApplication
         // Now wait for the user to press the start button.
         userInterface.waitForStart();
 
+        userInterface.print("How many steps");
+        
+        int steps = userInterface.getNumberOfSteps();
+        
         // Draw the initial view of the aquarium and its contents.
         userInterface.showAquarium();
 
@@ -71,27 +76,29 @@ public class AquaSimApplication
 
         // Make the fish move and redisplay.
         //      CODE MISSING HERE!
-           for (int i=0 ; i<=100; i++) 
+           for (int i=0 ; i<steps; i++) 
         {
-           
-            if (nemo.atWall() )
+           int randNum = generator.nextInt(4);
+            if (nemo.atWall() || generator.nextInt(4)==0)
            {
              nemo.changeDir();
            } 
            nemo.moveForward();
-    
-            if (sushi.atWall() )
+           
+            if (sushi.atWall() || generator.nextInt(4)==0)
            {
             sushi.changeDir();
            } 
            sushi.moveForward(); 
            
-            if (poke.atWall() ){
+            if (poke.atWall() || generator.nextInt(4)==0)
+           {
             poke.changeDir();
            }
            poke.moveForward();
            
-           if (dori.atWall() ){
+           if (dori.atWall()|| generator.nextInt(4)==0 )
+           {
             dori.changeDir();
            }
            dori.moveForward();
@@ -110,9 +117,9 @@ public class AquaSimApplication
     }//end main
     public static Color getColor()
         {
-            int randNum = generator.nextInt(4);
+            int randNum = generator.nextInt(6);
             
-            /*if (randNum==0)
+           if (randNum==0)
                 return Color.RED;
             else if (randNum==1)  
                 return Color.ORANGE;
@@ -124,11 +131,7 @@ public class AquaSimApplication
                 return Color.BLUE;
             else 
                 return Color.MAGENTA;
-           */      
-           if (randNum <=2)
-                return Color.RED;
-           else 
-                return Color.BLUE;
+           
                 
         }
 }//end class
